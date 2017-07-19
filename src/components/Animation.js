@@ -4,10 +4,14 @@ class Animation extends React.Component {
 
   constructor(props) {
     super(props);
-    
+
     this.state = {
       url: ' http://placehold.it/500x150'
     };
+  }
+
+  componentWillUpdate() {
+    this.showLoadingBar();
   }
 
   getNewCat = () => {
@@ -19,7 +23,7 @@ class Animation extends React.Component {
           return res.json()
         }
       })
-      .then(result => this.setState({ 
+      .then(result => this.setState({
         url: result.data.fixed_height_downsampled_url
       }));
   }
@@ -27,13 +31,13 @@ class Animation extends React.Component {
   showLoadingBar = () => {
     const progressBar = document.getElementById('progress-bar');
     progressBar.className = 'off on';
-    setTimeout(() => progressBar.className = 'off', 1100);
+    setTimeout(() => progressBar.className = 'off', 3000);
   }
 
   render() {
     return (
       <div>
-        <img src={this.state.url} height="100px"/>
+        <img src={this.state.url} height="100px"></img>
         <div><button onClick={this.getNewCat}>New random .gif!</button></div>
       </div>
     )
